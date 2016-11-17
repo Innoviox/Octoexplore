@@ -77,7 +77,7 @@ Player.prototype.getTouching = function(row, column){
     //r1 = levelPiece.length-row-2;
     //window.alert(levelPiece[r1]);//[column-1])
     //window.alert("Column" + column.toString())
-    row = Math.trunc(row)-1;
+    row = Math.trunc(row);
     column = Math.trunc(column)-1;
     if (column+1 >= levelPiece.length || column <= 0){
         //this.die();
