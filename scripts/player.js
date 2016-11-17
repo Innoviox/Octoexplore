@@ -122,20 +122,26 @@ Player.prototype.touchSense = function(touchArr, speedX, speedY, r, c){
     } else if (speedY > 0){
         n = 1;
     };
-    
+    this.jumping = true;
     if (typeof(n) !== undefined){
         t = solidTiles[tileDict[touchArr[n]]];
         console.log(touchArr[n], n, t);
         if (t == 1){
             speedY = 0;
+            this.jumping = true;
         } else if (t == 2){
             this.die();
+            this.jumping = false;
         } else if (t == 3){
             this.collect(r, c);
+            this.jumping = false;
+        } else {
+            this.jumping = false;
         };
     }
   //  console.log(t);
     //console.log(speedY);
+   // window.alert(jumping)
     return [speedX, speedY]
 }
 

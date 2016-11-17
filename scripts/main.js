@@ -4,31 +4,12 @@ id = level.player.startspot[1].toString()+","+level.player.startspot[0].toString
 //console.log(id)
 //window.alert(getDiv([6,2]))
 //jQuery bind player motion
-function test_key(selkey){
-    var alias = {
-        "left":37,
-        "up":38,
-        "right":39,
-        "down":40
-    };
-
-    return key[selkey] || key[alias[selkey]];
-}
-
-function test_keys(){
-    var keylist = arguments;
-
-    for(var i = 0; i < keylist.length; i++)
-        if(!test_key(keylist[i]))
-            return false;
-
-    return true;
-}
 
 var keys = [];
 //document.body.innerHTML = "Keys currently pressed: "
 window.addEventListener("keydown",
     function(e){
+    //window.alert("UH")
         keys[e.keyCode] = e.keyCode;
         var keysArray = getNumberArray(keys);
         check(keysArray);
@@ -53,25 +34,36 @@ function getNumberArray(arr){
 }
 
 function check(ka){
+    //window.alert("CHECK")
     if (37 in ka){
         level.player.speedX -= 8; 
         if (38 in ka){
-            level.player.speedY -= 5;
+            if (Boolean(level.player.jumping)){
+                
+                level.player.speedY -= 5;
+            }
         }
     }
     
     if (39 in ka){
         level.player.speedX += 8;
         if (38 in ka){
-            level.player.speedY -= 5;
+            if (Boolean(level.player.jumping)){
+
+                level.player.speedY -= 5;
+            }
         }
     }
     
    else if (38 in ka){
-        level.player.speedY -= 5;
+      // window.alert(level.player.jumping)
+                   if (Boolean(level.player.jumping)){
+
+                       level.player.speedY -= 5;}
     }
 }
 $(document).bind('keydown', function(e){
+    //window.alert("jquery")
 		if (e.keyCode == 37){
 			level.player.speedX -= 8; 
             console.log('left');
@@ -81,15 +73,22 @@ $(document).bind('keydown', function(e){
             console.log('right');
 		};
         if (e.keyCode == 40){
-			level.player.speedY += 5;
-            console.log(level.player.speedY);
+            
+            if (Boolean(level.player.jumping)){
+                level.player.speedY += 5;
+                console.log(level.player.speedY);
+            }
 		};
         if (e.keyCode == 38){
-			level.player.speedY -= 5;
-            console.log(level.player.speedY);
-		}
-	level.player.move(getDiv(level.player.startspot));
-});
+           // window.alert(level.player.jumping)
+          //  window.alert(Boolean(level.player.jumping))
+            if (Boolean(level.player.jumping)){
+                level.player.speedY -= 5;
+                console.log(level.player.speedY);
+            }
+		}});
+	//level.player.move(getDiv(level.player.startspot));
+//});
 /*var map = {}; // You could also use an array
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
